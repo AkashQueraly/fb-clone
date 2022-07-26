@@ -6,14 +6,14 @@ import Post from "./Post";
 
 import { useState, useEffect } from "react";
 import db from "./firebase";
+import firebase from './firebase'
 
 function Feed() {
 
   const [posts, setPosts] = useState([]);
-
+console.log(firebase)
   useEffect(() => {
     db.collection("posts")
-      .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
         setPosts(
           snapshot.docs.map((doc) => ({
@@ -32,7 +32,6 @@ function Feed() {
           key={post.id}
           profilePic={post.data.profilePic}
           message={post.data.message}
-          timestamp={post.data.timestamp}
           username={post.data.username}
           image={post.data.image}
         />

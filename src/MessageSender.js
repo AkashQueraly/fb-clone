@@ -5,30 +5,28 @@ import VideocamIcon from "@material-ui/icons/Videocam";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import { useState } from "react";
-import { useStateValue } from './StateProvider'
-import db  from './firebase'
-import firebase from './firebase'
- 
+import { useStateValue } from "./StateProvider";
+import db from "./firebase";
+import firebase from "./firebase";
 
 function MessageSender() {
-  const [{user}]=useStateValue()
+  const [{ user }] = useStateValue();
 
-    const [input,setInput]=useState('')
-    const [imageUrl,setImageUrl]=useState('')
+  const [input, setInput] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-db.collection('posts').add({
-  message:input,
-  timestamp:firebase.firestore.FieldValue.serverTimestamp(),
-  profilePic:user.photoURL,
-  username:user.displayName,
-  image:imageUrl
-})
-
-  setImageUrl('')
-  setInput('')
-
+    db.collection("posts").add({
+      message: input,
+      profilePic: user.photoURL,
+      username: user.displayName,
+      image: imageUrl,
+    });
+    console.log(firebase);
+    console.log(firebase._appCompat);
+    setImageUrl("");
+    setInput("");
   };
   return (
     <div className="messageSender">
@@ -40,14 +38,16 @@ db.collection('posts').add({
             className="messageSender__input"
             placeholder={`What's on your mind, ${user.displayName} ?`}
             value={input}
-            onChange={(e)=>setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value)}
           />
-          <input type="text" placeholder="Image URL (Optional)" 
-        value={imageUrl}
-        onChange={(e)=>setImageUrl(e.target.value)}
+          <input
+            type="text"
+            placeholder="Image URL (Optional)"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
           />
-          <button type = "submit" onClick={handleSubmit}>
-   Handle Submit
+          <button type="submit" onClick={handleSubmit}>
+            Handle Submit
           </button>
         </form>
       </div>
