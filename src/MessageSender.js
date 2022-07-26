@@ -7,7 +7,6 @@ import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import { useState } from "react";
 import { useStateValue } from "./StateProvider";
 import db from "./firebase";
-import firebase from "./firebase";
 
 function MessageSender() {
   const [{ user }] = useStateValue();
@@ -23,8 +22,7 @@ function MessageSender() {
       username: user.displayName,
       image: imageUrl,
     });
-    console.log(firebase);
-    console.log(firebase._appCompat);
+
     setImageUrl("");
     setInput("");
   };
